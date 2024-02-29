@@ -4,23 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        .btn {
+            width: 70px;
+            height: 40px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Calculadora</h1>
-    <label for="num1">Número 1:</label>
-    <input type="number" id="num1"><br><br>
-    <label for="num2">Número 2:</label>
-    <input type="number" id="num2"><br><br>
-    <label for="operacao">Operação:</label>
-    <select id="operacao">
-        <option value="adicao">Adição</option>
-        <option value="subtracao">Subtração</option>
-        <option value="multiplicacao">Multiplicação</option>
-        <option value="divisao">Divisão</option>
-    </select><br><br>
-    <button onclick="calcular()">Calcular</button><br><br>
-    <p id="resultado"></p>
+    <div class="calculator">
+        <div class="result" id="result">0</div>
+        <button class="btn" onclick="clearResult()">C</button>
+        <button class="btn" onclick="appendNumber('7')">7</button>
+        <button class="btn" onclick="appendNumber('8')">8</button>
+        <button class="btn" onclick="appendNumber('9')">9</button>
+        <button class="btn" onclick="setOperation('+')">+</button>
+        <button class="btn" onclick="appendNumber('4')">4</button>
+        <button class="btn" onclick="appendNumber('5')">5</button>
+        <button class="btn" onclick="appendNumber('6')">6</button>
+        <button class="btn" onclick="setOperation('-')">-</button>
+        <button class="btn" onclick="appendNumber('1')">1</button>
+        <button class="btn" onclick="appendNumber('2')">2</button>
+        <button class="btn" onclick="appendNumber('3')">3</button>
+        <button class="btn" onclick="setOperation('*')">*</button>
+        <button class="btn" onclick="appendNumber('0')">0</button>
+        <button class="btn" onclick="calculateResult()">=</button>
+        <button class="btn" onclick="setOperation('/')">/</button>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        let currentNumber = '';
+        let operation = '';
+        let prevNumber = '';
+        const resultDisplay = document.getElementById('result');
+
+        function clearResult() {
+            currentNumber = '';
+            operation = '';
+            prevNumber = '';
+            resultDisplay.textContent = '0';
+        }
+
+        function appendNumber(number) {
+            if (number === '.' && currentNumber.includes('.')) return;
+            currentNumber += number;
+            resultDisplay.textContent = currentNumber;
+        }
+
+        function setOperation(op) {
+            if (currentNumber === '') return;
+            if (prevNumber !== '') {
+                calculateResult();
+            }
+            operation = op;
+            prevNumber = currentNumber;
+            currentNumber = '';
+        }
+
+        function calculateResult() {
+            if (prevNumber === '' || currentNumber === '') return;
+            let result;
+            const num1 = parseFloat(prevNumber);
+            const num2 = parseFloat(currentNumber);
+            switch (operation) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 === 0) {
+                        result = 'Error';
+                    } else {
+                        result = num1 / num2;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            resultDisplay.textContent = result;
+            currentNumber = result.toString();
+            prevNumber = '';
+            operation = '';
+        }
+    </script>
 </body>
 </html>
