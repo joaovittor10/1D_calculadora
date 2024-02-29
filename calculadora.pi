@@ -35,3 +35,6 @@ def calcular():
         print("Resultado:", divisao(num1, num2))
     else:
         print("Opção inválida")
+
+# Chamando a função para iniciar a calculadora
+calcular()
