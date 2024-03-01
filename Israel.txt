@@ -1,0 +1,10 @@
+São definidas quatro funções:
+adicao(x, y): Retorna a soma de x e y.
+subtracao(x, y): Retorna a diferença entre x e y.
+multiplicacao(x, y): Retorna o produto de x e y.
+dai você escolhe umas dessas operações aí,dai você faz 
+um número- outro número que irá dar o resultado da
+conta.
+O resultado da operação é então exibido na tela.
+Chamada da Função calcular():
+bem eu acho que e isso.
